@@ -57,7 +57,7 @@ return [
         ],
         'privilege' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '会员特权',
         ],

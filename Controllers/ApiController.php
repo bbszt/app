@@ -3,6 +3,7 @@ namespace Controllers;
 
 
 use Weile\Member;
+use Weile\OrderedTreeDistrict;
 
 class ApiController extends BaseController {
 
@@ -167,6 +168,10 @@ class ApiController extends BaseController {
         $uid = \Input::get('uid');
         $member = \Weile\Member::find($uid);
         $cardList = $member->bankcard;
+        $cardList = $cardList->each(function($card) {
+            $card['bank'] = \BankInfo::find($card['bank_id'], ['id','name'])->toArray();
+            $card['district_info'] = OrderedTreeDistrict::find($card['district'], ['id', 'name'])->toArray();
+        });
 
         if($cardList) {
             return ['type'=> 1, 'data'=>$cardList->toArray(), 'msg'=>'数据获取成功'];
@@ -189,6 +194,11 @@ class ApiController extends BaseController {
         $member->bankcard()->save($de);
 
         return $this->successMsg([], '添加银行卡成功');
+    }
+
+    public function getSupportBankList() {
+        $data = \BankInfo::all()->toArray();
+        return $this->successMsg($data, '获取成功');
     }
 
     public function getDeleteBankcard() {

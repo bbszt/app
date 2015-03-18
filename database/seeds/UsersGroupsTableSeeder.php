@@ -10,6 +10,10 @@ class UsersGroupsTableSeeder extends Seeder {
         DB::table('users_groups')->truncate();
 
         $this->matchUser('admin@weile.com', 'Admins');
+        $this->matchUser('admin1@weile.com', 'Admins');
+        $this->matchUser('admin2@weile.com', 'Admins');
+        $this->matchUser('admin3@weile.com', 'Admins');
+        $this->matchUser('admin4@weile.com', 'Admins');
         $this->matchUser('users@weile.com', 'Users');
         $this->matchUser('groups@weile.com', 'Groups');
         $this->matchUser('permissions@weile.com', 'Permissions');

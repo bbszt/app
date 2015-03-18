@@ -30,9 +30,9 @@ return [
             'length' => 20,
             'size_limit' => 20,
             'sizes' => array(
-                array(65, 57, 'crop', public_path() . '/uploads/products/thumbs/small/', 100),
-                array(220, 138, 'landscape', public_path() . '/uploads/products/thumbs/medium/', 100),
-                array(383, 276, 'fit', public_path() . '/uploads/products/thumbs/full/', 100)
+                //强制匹配尺寸,图片变形
+                array(960, 300, 'exact', public_path() . '/uploads/products/thumbs/small/', 100),
+                array(960, 450, 'exact', public_path() . '/uploads/products/thumbs/mid/', 100),
             )
         ],
 
@@ -43,7 +43,7 @@ return [
         'introduce' => [
             'title' => '广告说明',
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
         ],
 
@@ -54,6 +54,10 @@ return [
         'detail' => [
             'type' => 'wysiwyg',
             'title' => '图文详情',
+        ],
+        'recommend' => [
+            'type' => 'bool',
+            'title' => '是否首页推荐',
         ],
         'url' => [
             'title' => 'WEB链接',

@@ -20,6 +20,7 @@ class CreateAdvertiseTable extends Migration {
             $table->text('introduce');
             $table->text('detail');
             $table->string('url');
+            $table->tinyInteger('recommend');
 			$table->timestamps();
 		});
 	}

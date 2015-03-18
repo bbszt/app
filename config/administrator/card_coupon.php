@@ -60,13 +60,13 @@ return [
         ],
         'introduce' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '优惠介绍',
         ],
         'instruction' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '使用说明',
         ],

@@ -54,11 +54,12 @@ class MyTest extends TestCase {
         $this->assertEquals('1', $view['type']);
     }
 
-    public function atestApiMemberBankcardList() {
+    public function testApiMemberBankcardList() {
         $uid = $this->member->id;
         $data['uid'] = $uid;
         $response = $this->call('GET', 'api/member-bankcard-list', $data);
         $view = $response->original;
+        var_dump($view);
         $this->assertEquals('1', $view['type']);
     }
 
@@ -85,7 +86,13 @@ class MyTest extends TestCase {
 #        var_dump($view);
         $this->assertEquals('1', $view['type']);
 
+    }
 
+    public function atestApiGetSupportBankList() {
+        $response = $this->call('GET', 'api/support-bank-list');
+        $view = $response->original;
+#        var_dump($view);
+        $this->assertEquals('1', $view['type']);
     }
 
     public function setUp() {

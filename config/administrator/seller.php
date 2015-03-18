@@ -90,14 +90,14 @@ return [
         'logo' => [
             'title' => 'logo图',
             'type' => 'image',
-            'location' => public_path() . '/uploads/seller/originals/',
+            'location' => public_path() . '/uploads/products/originals/',
             'naming' => 'random',
             'length' => 20,
             'size_limit' => 20,
             'sizes' => array(
-                array(65, 57, 'crop', public_path() . '/uploads/seller/thumbs/small/', 100),
-                array(220, 138, 'landscape', public_path() . '/uploads/seller/thumbs/medium/', 100),
-                array(383, 276, 'fit', public_path() . '/uploads/seller/thumbs/full/', 100)
+                //留白，会压缩图片，不变形
+                array(270, 150, 'fit', public_path() . '/uploads/products/thumbs/small/', 100),
+                array(960, 450, 'fit', public_path() . '/uploads/products/thumbs/mid/', 100),
             )
         ],
 
@@ -108,19 +108,19 @@ return [
         ],
         'privilege' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '会员特权',
         ],
         'introduce' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '商家介绍',
         ],
         'services' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '设施服务',
         ],

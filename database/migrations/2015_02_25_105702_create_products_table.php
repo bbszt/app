@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration {
             $table->integer('country_of_origin');
             $table->text('description');
             $table->text('activities_introduce');
+            $table->text('params');
             $table->integer('category');
             $table->integer('district');
             $table->decimal('rank');

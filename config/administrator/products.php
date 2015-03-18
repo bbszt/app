@@ -91,27 +91,27 @@ return [
             'length' => 20,
             'size_limit' => 20,
             'sizes' => array(
-                array(65, 57, 'crop', public_path() . '/uploads/products/thumbs/small/', 100),
-                array(220, 138, 'landscape', public_path() . '/uploads/products/thumbs/medium/', 100),
-                array(383, 276, 'fit', public_path() . '/uploads/products/thumbs/full/', 100)
+                //留白，会压缩图片，不变形
+                array(270, 150, 'fit', public_path() . '/uploads/products/thumbs/small/', 100),
+                array(960, 450, 'fit', public_path() . '/uploads/products/thumbs/mid/', 100),
             )
         ],
 
         'description' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '商家介绍',
         ],
         'activities_introduce' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '优惠活动',
         ],
         'params' => [
             'type' => 'textarea',
-            'limit' => '500',
+            'limit' => '1000',
             'height' => '130',
             'title' => '参数规格',
         ],
@@ -152,6 +152,7 @@ return [
         return true;
     },
 
+    /*
     'rules' => array(
         'name' => 'required|max:255',
         'params' => 'required|max:255',
@@ -164,6 +165,7 @@ return [
         'description' => 'required',
         'activities_introduce' => 'required',
     ),
+    */
 
     'form_width' => 500,
 
