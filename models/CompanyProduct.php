@@ -78,7 +78,8 @@ class CompanyProduct extends \Eloquent {
         if (empty($m)) return false;
         $data = [];
         foreach ($m[1] as $item) {
-            $data[] = new CompanyProductImg(['path'=>$item]);
+            $path = htmlspecialchars_decode($item);
+            $data[] = new CompanyProductImg(['path'=>$path]);
         }
         $this->imgs()->delete();
         $this->imgs()->saveMany($data);

@@ -165,7 +165,8 @@ class Seller extends \Eloquent {
         if (empty($m)) return false;
         $data = [];
         foreach ($m[1] as $item) {
-            $data[] = new SellerImg(['path'=>$item]);
+            $path = htmlspecialchars_decode($item);
+            $data[] = new SellerImg(['path'=>$path]);
         }
         $this->imgs()->delete();
         $this->imgs()->saveMany($data);

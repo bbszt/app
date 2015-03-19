@@ -15,8 +15,8 @@ class CreateSellerTable extends Migration {
 		Schema::create('seller', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('name');
-            $table->string('logo');
+            $table->string('name', 1000);
+            $table->string('logo', 1000);
             $table->integer('district');
             $table->tinyInteger('type');
             $table->tinyInteger('card_type');

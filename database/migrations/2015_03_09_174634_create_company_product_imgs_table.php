@@ -15,7 +15,7 @@ class CreateCompanyProductImgsTable extends Migration {
 		Schema::create('company_product_imgs', function(Blueprint $table)
 		{
 			$table->increments('id');
-            $table->string('path');
+            $table->string('path', 1000);
             $table->integer('product_id');
 			$table->timestamps();
 		});
