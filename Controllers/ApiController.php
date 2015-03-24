@@ -36,6 +36,142 @@ class ApiController extends BaseController {
         }
     }
 
+    //获取订单详情
+    public function getOrderDetail() {
+        $uid = \Input::get('uid');
+        $order_id = \Input::get('order_id');
+
+        $order = \ProductOrder::with('products')->where('order_id', $order_id)->first();
+        if($order == '') {
+            return $this->errorMsg();
+        }
+        $order->district_path = OrderedTreeDistrict::getPathById($order->district);
+#        var_dump($order->toArray());
+        return $this->successMsg($order->toArray());
+    }
+
+    //获取订单列表
+    public function getOrderList() {
+        $uid = \Input::get('uid');
+        $status = \Input::get('status');
+        $member = Member::find($uid);
+
+        $orders = $member->orders()->where('status', $status)->with('products')->get();
+        if($orders == '') {
+            return $this->errorMsg();
+        }
+
+#        var_dump($orders->toArray());
+#        var_dump($orders['products']->toArray());
+        return $this->successMsg($orders->toArray(), '订单列表返回成功！');
+    }
+
+    //删除订单
+    public function getDeleteOrder() {
+        $order_id = \Input::get('order_id');
+        $order = \ProductOrder::where('order_id', $order_id)->first();
+        //软删除
+#        var_dump($order->toArray());
+        if($order == null) {
+            return $this->errorMsg();
+        }
+        $order->delete();
+        return $this->successMsg([], '取消订单成功！');
+    }
+
+    //获取订单数量
+    public function getOrderNum() {
+        $uid = \Input::get('uid');
+        $member = Member::find($uid);
+
+        $orders = $member->orders;
+
+        $data['nopay'] = 0;
+        $data['paying'] = 0;
+        $data['noship'] = 0;
+        $data['norecv'] = 0;
+        $data['refund'] = 0;
+        $data['finish'] = 0;
+
+        $orders->each(function($row) use(&$data) {
+           switch ($row->status) {
+               case 0:
+                   $data['nopay']++;
+                   break;
+               case 1:
+                   $data['paying']++;
+                   break;
+               case 2:
+                   $data['noship']++;
+                   break;
+               case 3:
+                   $data['norecv']++;
+                   break;
+               case 4:
+                   $data['refund']++;
+                   break;
+               case 5:
+                   $data['finish']++;
+                   break;
+               default:
+
+           }
+
+        });
+
+        return $this->successMsg($data);
+
+#        var_dump($orders->toArray());
+
+
+    }
+    //创建订单
+    public function getMakeOrder() {
+        //订单生成,参数有：收货地址ID，产品IDS，用户ID，订单金额，运费，
+        $amount = \Input::get('amount');
+        $freight = \Input::get('freight');
+        $uid = \Input::get('uid');
+        $delivery_id = \Input::get('delivery_id');
+        $products = unserialize(\Input::get('product_str'));
+
+        $member = Member::find($uid);
+        $data['phone'] = $member->phone;
+        $data['username'] = $member->username;
+
+#        $fileds = ['amount', 'freight', 'username', 'phone', 'district', 'district_detail'];
+
+        $data['amount'] = $amount;
+        $data['freight'] = $freight;
+        $data['member_id'] = $uid;
+        $data['order_id'] = build_order_no();
+        //处理收货信息
+        $delivery = $member->delivery()->where('id', $delivery_id)->first();
+        if($delivery == null) {
+            return $this->errorMsg('没有收货人的相关数据！');
+        }
+        $data['district'] = $delivery->district;
+        $data['district_detail'] = $delivery->detail;
+
+
+#        var_dump($products);
+        //绑定产品与订单的关联
+        if(!empty($products)) {
+            $products_id = [];
+            foreach ($products as $row) {
+#            echo $row->id;
+                $products_id[$row['id']] = ['num'=>$row['qty']];
+            }
+#var_dump($products_id);exit;
+
+            $product_order = new \ProductOrder($data);
+            $product_order->save();
+            $product_order->products()->sync($products_id);
+
+            return $this->successMsg([], '订单创建成功！');
+        }
+        return $this->errorMsg('没有产品数据，订单创建失败！');
+    }
+
     //重置密码验证码
     //http://weile.app/api/remind-code?phone=18002590105
     public function getRemindCode() {

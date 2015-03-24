@@ -3,10 +3,12 @@ namespace Controllers;
 
 use Baum\Node;
 use Illuminate\Database\Eloquent\Collection;
+use Monolog\Logger;
 use Weile\District;
 use Weile\Member;
 use Weile\OrderedTreeDistrict;
 use Weile\Repositories\Eloquent\MemberRepository;
+use GuzzleHttp\Client;
 
 class HomeController extends BaseController {
 
@@ -26,9 +28,12 @@ class HomeController extends BaseController {
 	public function index()
 	{
 
-        $m = Member::find(3);
+#        $list = \WeChatClient::getFollowersList();
+#        foreach ($list['list'] as $item) {
+#            \WeChatClient::sendTextMsg($item, 'sss');
+#        }
+#        var_dump($list);
 
-        var_dump($m);
 
 #        $node = District::find(1)->children();
 ##        var_dump($node->get()->toArray());

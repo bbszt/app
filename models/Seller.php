@@ -58,13 +58,13 @@ class Seller extends \Eloquent {
 
     public function getMidImgUrlAttribute() {
         if ($this->attributes['logo']) {
-            return asset('uploads/seller/thumbs/medium/' . $this->attributes['logo']);
+            return asset('uploads/products/thumbs/mid/' . $this->attributes['logo']);
         }
         return '';
     }
     public function getImgUrlAttribute() {
         if ($this->attributes['logo']) {
-            return asset('uploads/seller/thumbs/small/' . $this->attributes['logo']);
+            return asset('uploads/products/thumbs/small/' . $this->attributes['logo']);
         }
         return '';
     }
